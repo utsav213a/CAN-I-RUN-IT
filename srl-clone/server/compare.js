@@ -322,4 +322,40 @@ function runScore(db, games, spec) {
   };
 }
 
-module.exports = { prepare, findHardware, requiredScore, evaluateTier, verdictFor, checkGame, recommendPcs, runScore, pcSpec };
+// ---------------------------------------------------------------------------
+// Related parts: used when a part is not in the benchmark database. They share the
+// product line ("RTX", "Ryzen 5", "Core i7") and have the closest model number.
+// ---------------------------------------------------------------------------
+
+const BRAND_WORDS = new Set(['nvidia', 'amd', 'intel', 'geforce', 'radeon', 'gpu', 'graphics', 'laptop',
+  'desktop', 'cpu', 'processor', 'with', 'the', 'series', 'edition', 'card', 'video', 'max', 'q', 'design', 'mobile']);
+
+function wordsOf(name) {
+  return String(name || '').toLowerCase().split(/[^a-z0-9]+/).filter(Boolean);
+}
+
+function modelNumber(name) {
+  const m = /\d{3,5}/.exec(String(name || ''));
+  return m ? Number(m[0]) : null;
+}
+
+// Returns up to `count` catalogue entries that share the most product-line words with `rawName`.
+// Ties go to the closest model number. Returns [] when nothing shares a product-line word.
+function relatedHardware(list, rawName, count = 8) {
+  const words = wordsOf(rawName).filter((w) => !BRAND_WORDS.has(w) && !/^\d+$/.test(w));
+  if (!words.length) return [];
+  const model = modelNumber(rawName);
+  const scored = [];
+  for (const item of list) {
+    const itemWords = new Set(wordsOf(item.name));
+    const shared = words.filter((w) => itemWords.has(w)).length;
+    if (!shared) continue;
+    const itemModel = modelNumber(item.name);
+    const distance = model !== null && itemModel !== null ? Math.abs(model - itemModel) : Number.MAX_SAFE_INTEGER;
+    scored.push({ item, shared, distance });
+  }
+  scored.sort((a, b) => b.shared - a.shared || a.distance - b.distance || a.item.name.localeCompare(b.item.name));
+  return scored.slice(0, count).map((x) => x.item);
+}
+
+module.exports = { relatedHardware, prepare, findHardware, requiredScore, evaluateTier, verdictFor, checkGame, recommendPcs, runScore, pcSpec };
