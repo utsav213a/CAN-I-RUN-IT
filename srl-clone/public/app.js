@@ -681,11 +681,14 @@
     try {
       const data = await api(`/api/hardware/${kind}/nearby?name=${encodeURIComponent(name)}&radius=${radius}`);
       const label = kind === 'gpus' ? 'Graphics cards' : 'Processors';
-      const buttons = BENCH_RADIUS.map((r) => `<button type="button" class="btn small${r === radius ? ' primary' : ''}" data-nearby="${kind}" data-name="${h(name)}"${threshold ? ` data-threshold="${h(threshold)}"` : ''} data-radius="${r}">±${r} parts</button>`).join('');
+      const note = data.related
+        ? `<p class="small muted"><strong>${h(name)}</strong> is not in our benchmark database. These ${kind === 'gpus' ? 'graphics cards' : 'processors'} from the same product line are shown instead, ordered by score (higher is faster).</p>`
+        : `<p class="small muted">${label} near <strong>${h(data.target.name)}</strong>, ordered by score (higher is faster). The highlighted bar is the part you asked about.</p>`;
+      const buttons = data.related ? '' : `<div class="row">${BENCH_RADIUS.map((r) => `<button type="button" class="btn small${r === radius ? ' primary' : ''}" data-nearby="${kind}" data-name="${h(name)}"${threshold ? ` data-threshold="${h(threshold)}"` : ''} data-radius="${r}">±${r} parts</button>`).join('')}</div>`;
       box.innerHTML = `
-        <p class="small muted">${label} near <strong>${h(data.target.name)}</strong>, ordered by score (higher is faster). The highlighted bar is the part you asked about.</p>
+        ${note}
         <div class="bench-scroll">${benchChart(data.items, threshold)}</div>
-        <div class="row">${buttons}</div>
+        ${buttons}
         <p class="small muted">Source: Blender Open Data render benchmark (CC0). It measures 3D rendering, not game frame rates.</p>`;
     } catch (e) {
       box.innerHTML = errorBox(e.message);
@@ -694,11 +697,16 @@
 
   // A "Compare nearby" button under a CPU or GPU row of the result, with a chart box it fills.
   function compareBlock(c) {
-    if (!c.hardware || (c.id !== 'cpu' && c.id !== 'gpu')) return '';
+    if (c.id !== 'cpu' && c.id !== 'gpu') return '';
+    // Use the matched part. If it is not in the database, use the name the scan sent, and
+    // the server answers with the parts of the same product line.
+    const name = c.hardware || (c.actual && !/^(unknown|—)$/i.test(c.actual) ? c.actual : '');
+    if (!name) return '';
     const kind = c.id === 'cpu' ? 'cpus' : 'gpus';
     const threshold = c.requiredScore ? ` data-threshold="${h(c.requiredScore)}"` : '';
+    const text = c.hardware ? `Compare nearby: ${c.label} benchmarks` : `Compare with related ${c.id === 'cpu' ? 'processors' : 'graphics cards'}`;
     return `<div class="compare-nearby">
-      <button type="button" class="btn small" data-nearby="${kind}" data-name="${h(c.hardware)}"${threshold} data-radius="4">Compare nearby: ${h(c.label)} benchmarks</button>
+      <button type="button" class="btn small" data-nearby="${kind}" data-name="${h(name)}"${threshold} data-radius="4">${h(text)}</button>
       <div class="nearby-box" hidden></div>
     </div>`;
   }
