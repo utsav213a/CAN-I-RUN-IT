@@ -193,7 +193,20 @@ function createApp({ catalogue, reports, stats, publicDir, config = {} }) {
     const name = (url.searchParams.get('name') || '').slice(0, 120);
     const radius = Math.min(10, Math.max(1, Number(url.searchParams.get('radius')) || 4));
     const target = name ? compare.findHardware(catalogue.db, sorted, name, isGpu) : null;
-    if (!target) throw new HttpError(404, 'That part is not in the benchmark database');
+    if (!target) {
+      // Not in the database: show the parts of the same product line instead.
+      const related = compare.relatedHardware(sorted, name);
+      if (!related.length) throw new HttpError(404, 'No benchmark data for this part or its product line');
+      return {
+        kind: params.kind,
+        query: name,
+        target: null,
+        related: true,
+        items: related
+          .map((x) => ({ name: x.name, score: x.score, vramMB: x.vramMB ?? null, target: false }))
+          .sort((a, b) => a.score - b.score),
+      };
+    }
     const i = sorted.indexOf(target);
     const items = sorted
       .slice(Math.max(0, i - radius), i + radius + 1)
