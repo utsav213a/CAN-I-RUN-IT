@@ -284,7 +284,7 @@
         <div class="card">
           <h2>1. Download the scanner</h2>
           <p class="muted">Windows only. Portable: no installer, no background service, nothing added to startup. Run it, check the preview, then choose <em>Send</em> or <em>Save as JSON only</em>.</p>
-          <a class="btn primary" href="downloads/SRL-Hardware-Check.exe" download>Download scanner (.exe)</a>
+          <a class="btn primary" href="https://github.com/utsav213a/CAN-I-RUN-IT/releases/download/v1.0/SRL-Hardware-Check.exe" rel="noopener">Download scanner (.exe)</a>
           <p class="small muted">Build it yourself from the source if you prefer. See the README.</p>
         </div>
         <div class="card">
