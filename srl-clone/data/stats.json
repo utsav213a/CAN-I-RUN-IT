@@ -1,0 +1,20 @@
+{
+  "totalScans": 4,
+  "games": {
+    "elden-ring": {
+      "views": 3,
+      "passMinimum": 3,
+      "passRecommended": 0
+    },
+    "cyberpunk-2077": {
+      "views": 1,
+      "passMinimum": 1,
+      "passRecommended": 0
+    },
+    "baldurs-gate-3": {
+      "views": 1,
+      "passMinimum": 1,
+      "passRecommended": 0
+    }
+  }
+}

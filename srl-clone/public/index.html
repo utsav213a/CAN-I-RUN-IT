@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Can I Run It - System Requirements Lab clone</title>
+  <meta name="description" content="Check whether your PC can run a PC game. Compare your hardware with minimum and recommended requirements.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#/">Can I Run It</a>
+    <nav class="nav" aria-label="Main">
+      <a href="#/az">A–Z</a>
+      <a href="#/popular">Popular</a>
+      <a href="#/recent">Recently added</a>
+      <a href="#/lists">Test multiple games</a>
+      <a href="#/pcs">What will run it?</a>
+<a href="#/benchmarks">Benchmarks</a>
+      <a href="#/scan">Scan my PC</a>
+      <a href="#/faq">FAQ</a>
+    </nav>
+  </header>
+
+  <main id="app" class="container" aria-live="polite">
+    <p class="muted">Loading…</p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        <a href="#/privacy">Privacy policy</a> ·
+        <a href="#/terms">Terms</a> ·
+        <a href="#/faq">FAQ</a> ·
+        <button class="link" type="button" id="cookie-settings">Cookie settings</button>
+      </p>
+      <p class="muted small">Game requirements are from publisher listings and sample data where noted. Some links may be affiliate links; see each page for disclosure.</p>
+    </div>
+  </footer>
+
+  <div id="cookie-banner" class="cookie-banner" hidden role="dialog" aria-label="Cookie consent">
+    <p>We use local storage only to remember your last scan result if you allow it. No tracking cookies.</p>
+    <div class="row">
+      <button type="button" class="btn" id="cookie-decline">Decline</button>
+      <button type="button" class="btn primary" id="cookie-accept">Accept</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

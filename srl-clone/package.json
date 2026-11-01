@@ -1,0 +1,23 @@
+﻿{
+  "name": "srl-clone",
+  "version": "1.0.0",
+  "description": "Can I Run It: check whether your PC can run a game. Zero-dependency Node.js app.",
+  "private": true,
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "node --test tests/",
+    "import:games": "node scripts/import-games.js",
+    "import:steam:list": "node scripts/steam-applist.js",
+    "import:steam:details": "node scripts/steam-details.js",
+    "import:steam:popular": "node scripts/steam-popular.js",
+    "build:games": "node scripts/build-games.js",
+    "build:benchmarks": "node scripts/build-benchmarks.js",
+    "scanner": "node scanner/scan.js",
+    "build:scanner": "node scanner/build.js"
+  }
+}
+

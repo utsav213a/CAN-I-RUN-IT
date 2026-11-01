@@ -1,0 +1,42 @@
+[
+  {
+    "id": "budget-1",
+    "name": "Budget 1080p build",
+    "cpu": "AMD Ryzen 5 3600",
+    "gpu": "AMD Radeon RX 6600",
+    "ramGB": 16,
+    "storageGB": 500,
+    "price": 699,
+    "url": "https://www.example.com/product/budget-1080p-build?tag={tag}"
+  },
+  {
+    "id": "mid-1",
+    "name": "Mid-range 1440p build",
+    "cpu": "AMD Ryzen 5 5600X",
+    "gpu": "NVIDIA GeForce RTX 3060",
+    "ramGB": 16,
+    "storageGB": 1000,
+    "price": 899,
+    "url": "https://www.example.com/product/midrange-1440p-build?tag={tag}"
+  },
+  {
+    "id": "high-1",
+    "name": "High-end 1440p build",
+    "cpu": "Intel Core i7-13700K",
+    "gpu": "NVIDIA GeForce RTX 4070",
+    "ramGB": 32,
+    "storageGB": 2000,
+    "price": 1699,
+    "url": "https://www.example.com/product/high-end-1440p-build?tag={tag}"
+  },
+  {
+    "id": "ultra-1",
+    "name": "Ultra 4K build",
+    "cpu": "AMD Ryzen 7 7800X3D",
+    "gpu": "AMD Radeon RX 6800 XT",
+    "ramGB": 32,
+    "storageGB": 2000,
+    "price": 2299,
+    "url": "https://www.example.com/product/ultra-4k-build?tag={tag}"
+  }
+]

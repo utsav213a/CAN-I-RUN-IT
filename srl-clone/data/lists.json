@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "title": "Big open worlds",
+    "description": "Large, explorable games that stress CPU, GPU and memory.",
+    "gameSlugs": ["elden-ring", "cyberpunk-2077", "baldurs-gate-3"]
+  },
+  {
+    "id": 2,
+    "title": "Demanding 2020s releases",
+    "description": "Recent titles with high recommended specs.",
+    "gameSlugs": ["cyberpunk-2077", "elden-ring"]
+  }
+]
